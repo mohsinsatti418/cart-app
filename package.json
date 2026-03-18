@@ -1,5 +1,13 @@
 {
+  "name": "redux-cart-app",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix redux-cart-app\"",
+    "start:backend": "npm run start --prefix backend",
+    "start:frontend": "npm run dev --prefix redux-cart-app",
+    "install:all": "npm install && npm install --prefix backend && npm install --prefix redux-cart-app"
+  },
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "concurrently": "^9.0.0"
   }
 }

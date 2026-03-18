@@ -1,23 +1,32 @@
-const cartService = require("../Services/cartService");
+import Cart from "../models/cartModel.js";
 
-const getCart = (req, res) => {
-  const data = cartService.getCart();
-  res.json(data);
+const cartController = {
+  getCart: async (req, res) => {
+    try {
+      const items = await Cart.find();
+      res.json(items);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+
+  addToCart: async (req, res) => {
+    try {
+      const item = await Cart.create(req.body);
+      res.status(201).json(item);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+
+  removeFromCart: async (req, res) => {
+    try {
+      await Cart.findByIdAndDelete(req.params.id);
+      res.json({ message: "Item removed" });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
 };
 
-const addToCart = (req, res) => {
-  const data = cartService.addItem(req.body);
-  res.json(data);
-};
-
-const removeFromCart = (req, res) => {
-  const { id } = req.params;
-  const data = cartService.removeItem(Number(id));
-  res.json(data);
-};
-
-module.exports = {
-  getCart,
-  addToCart,
-  removeFromCart,
-};
+export default cartController;

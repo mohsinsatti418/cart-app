@@ -4,6 +4,9 @@ const cors = require("cors");
 const cartRoutes = require("./Routes/cartRoutes");
 const errorHandler = require("./MiddleWare/errorHandler");
 
+dotenv.config();
+connectDB(); 
+
 const app = express();
 
 app.use(cors());
@@ -13,6 +16,6 @@ app.use(express.json());
 app.use("/api", cartRoutes);
 app.use(errorHandler);
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
 });
