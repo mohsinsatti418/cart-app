@@ -1,21 +1,18 @@
-const express = require("express");
-const cors = require("cors");
-
-const cartRoutes = require("./Routes/cartRoutes");
-const errorHandler = require("./MiddleWare/errorHandler");
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import connectDB from '../src/Config/db.js';
+import cartRoutes from "../src/routes/cartRoutes.js";
 
 dotenv.config();
-connectDB(); 
+connectDB();
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.use("/api", cartRoutes);
-app.use(errorHandler);
+app.use("/cart", cartRoutes);
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`Server running on port ${process.env.PORT || 3000}`);
 });
